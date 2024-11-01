@@ -29,7 +29,7 @@ jobs:
       - name: Build
         run: |
           npm run build
-          # Removed next export line
+          ls -la ./_next # Check output directory
       - name: Setup Nginx
         run: |
           cat << EOF > rosti.nginx.conf
@@ -46,7 +46,7 @@ jobs:
           rm rosti.nginx.conf
       - name: Copy generated page
         run: |
-          rsync -ave "ssh -o UserKnownHostsFile=./known_hosts -p $PORT" --delete-after --exclude=.git ./out/ $USER@$HOST:/srv/app/
+          rsync -ave "ssh -o UserKnownHostsFile=./known_hosts -p $PORT" --delete-after --exclude=.git ./_next/ $USER@$HOST:/srv/app/
       - name: Apply changes to Nginx
         run: |
           ssh -o UserKnownHostsFile=./known_hosts -p $PORT $USER@$HOST nginx -s reload
