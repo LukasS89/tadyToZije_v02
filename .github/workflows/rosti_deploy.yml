@@ -37,7 +37,7 @@ jobs:
 
       - name: Copy generated files
         run: |
-          rsync -ave "ssh -o UserKnownHostsFile=./known_hosts -p $PORT" --delete-after --exclude=.git ./_next/ $USER@$HOST:/srv/app/
-
+          rsync -ave "ssh -o UserKnownHostsFile=./known_hosts -p $PORT" --delete-after --exclude=.git ./ $USER@$HOST:/srv/app/
+      
       - name: Reload Nginx
         run: ssh -o UserKnownHostsFile=./known_hosts -p $PORT $USER@$HOST nginx -s reload
